@@ -10,7 +10,7 @@ async function raditNoliktavasDatus(tipsAtlase)
     jsonVielas = await vielasNoServera.json();
     jsonVielas = pievienotIerakstuParKategoriju(jsonVielas, 'viela');
     //
-    let inventarsNoServera = await fetch('/api/v1/inventars');
+    let inventarsNoServera = await fetch('/api/v2/inventars');
     jsonInventars = await inventarsNoServera.json();
     jsonInventars = pievienotIerakstuParKategoriju(jsonInventars, 'inventars');
   }
@@ -24,8 +24,12 @@ async function raditNoliktavasDatus(tipsAtlase)
   else if(tipsAtlase=='aprikojums')
   {
     //jsonInventars = await iegutDatusNoApi('/api/v1/inventars');
-    let inventarsNoServera = await fetch('/api/v1/inventars');
-    jsonInventars = await inventarsNoServera.json();
+    let inventarsNoServera = await fetch('/api/v2/inventars');
+    jsonAtbilde = await inventarsNoServera.json();
+    jsonInventars=jsonAtbilde.dati
+    jsonZina=jsonAtbilde.jsonZina
+    console.log(jsonZina)
+
     jsonInventars = pievienotIerakstuParKategoriju(jsonInventars, 'inventars');
   }
 
@@ -53,7 +57,7 @@ async function raditNoliktavasDatus(tipsAtlase)
       <td> `+datiNoliktava[i]['tips']+` </td>
       <td> `+datiNoliktava[i]['apakstips']+` </td>
       <td> `+datiNoliktava[i]['skaits']+` </td>
-      <td> `+datiNoliktava[i]['daudzums']+` </td>
+      <td> `+datiNoliktava[i]['daudzums']+datiNoliktava[i]['mervienibas']`+ </td>
       <td> `+datiNoliktava[i]['komentari']+` </td>
       <td onclick="dzestVieluAprikojumu(`+datiNoliktava[i]['id']+`,'`+kategorija+`')"> ❌ </td>
       </tr>`;
